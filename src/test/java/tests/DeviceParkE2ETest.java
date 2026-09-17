@@ -22,23 +22,50 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.net.URI;
+import java.time.Duration;
 
 public class DeviceParkE2ETest extends BaseTest {
 
     private final Logger logger = LogManager.getLogger(DeviceParkE2ETest.class);
     private StorageFileUploadResponse storageFileUploadResponse;
     private StartDeviceSessionResponse sessionResponse;
+    public static final String key = System.getenv("key");
+
 
     @Test
-    public void appiumTestAndroid(){
+    public void appiumTestAndroid() {
         // IOS Capabilities
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("appium:app", "appium://app");
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setCapability("testinium:key", key);
 
+        desiredCapabilities.setCapability(
+                "appium:appPackage",
+                "com.deviceparktest.app"
+        );
+
+        desiredCapabilities.setCapability(
+                "appium:appActivity",
+                "com.deviceparktest.app.MainActivity"
+        );
+
+        desiredCapabilities.setCapability("appium:automationName", "UiAutomator2");
+
+        desiredCapabilities.setCapability("appium:fullReset", true);
+        desiredCapabilities.setCapability("appium:noReset", false);
+
+        desiredCapabilities.setCapability("appium:unicodeKeyboard", true);
+        desiredCapabilities.setCapability("appium:resetKeyboard", true);
+        desiredCapabilities.setCapability("appium:autoGrantPermissions", true);
+
+        desiredCapabilities.setCapability("appium:skipDeviceInitialization", true);
+        desiredCapabilities.setCapability("appium:skipServerInstallation", true);
+
+        desiredCapabilities.setCapability("appium:language", "tr");
+        desiredCapabilities.setCapability("appium:locale", "TR");
 
         // Appium Driver
         try {
-            WebDriver driver = new IOSDriver(new URI("http://hub.testinium.io/wd/hub").toURL(), capabilities);
+            WebDriver driver = new IOSDriver(new URI("http://hub.testinium.io/wd/hub").toURL(), desiredCapabilities);
 
             if (driver == null) {
                 throw new IllegalStateException("Driver oluşturulamadı!");
@@ -224,7 +251,7 @@ public class DeviceParkE2ETest extends BaseTest {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void afterTestProcess(){
+    public void afterTestProcess() {
         // Close Session
         CloseDeviceSessionRequest closeSession = new CloseDeviceSessionRequest(sessionResponse.getSessionId());
         CloseDeviceSessionClient closeDeviceSessionClient = new CloseDeviceSessionClient();
