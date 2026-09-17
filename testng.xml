@@ -1,0 +1,21 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="TestSuite">
+
+    <groups>
+        <define name="smoke"/>
+        <define name="ios"/>
+        <define name="android"/>
+    </groups>
+    <test name="Grouped Tests">
+
+        <groups>
+            <run>
+                <include name="${groups}"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="tests.DeviceParkE2ETest"/>
+        </classes>
+    </test>
+</suite>
