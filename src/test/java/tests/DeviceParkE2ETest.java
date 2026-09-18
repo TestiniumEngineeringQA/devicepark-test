@@ -2,6 +2,7 @@ package tests;
 
 import action.Swipe;
 import base.BaseTest;
+import com.testinium.driver.TestiniumAndroidDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.logging.log4j.LogManager;
@@ -65,8 +66,7 @@ public class DeviceParkE2ETest extends BaseTest {
 
         // Appium Driver
         try {
-            WebDriver driver = new AndroidDriver(new URI("http://hub.testinium.io/wd/hub").toURL(), desiredCapabilities);
-
+            WebDriver driver = new TestiniumAndroidDriver(new URI("https://dev-devicepark-appium-gw-service.testinium.io/wd/hub").toURL(), desiredCapabilities);
             if (driver == null) {
                 throw new IllegalStateException("Driver oluşturulamadı!");
             }
