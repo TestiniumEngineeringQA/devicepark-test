@@ -65,7 +65,7 @@ public class DeviceParkE2ETest extends BaseTest {
 
         // Appium Driver
         try {
-            WebDriver driver = new IOSDriver(new URI("http://hub.testinium.io/wd/hub").toURL(), desiredCapabilities);
+            WebDriver driver = new AndroidDriver(new URI("http://hub.testinium.io/wd/hub").toURL(), desiredCapabilities);
 
             if (driver == null) {
                 throw new IllegalStateException("Driver oluşturulamadı!");
